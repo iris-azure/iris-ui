@@ -300,3 +300,20 @@ iris-icon {
   background-image: url("./iris-white.svg");
   font-size: 1em;
 }
+
+.badge {
+  font-size: 75%;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  padding: 0.25em 0.4em;
+  line-height: 1;
+  text-align: center;
+}
+
+.badgeSuccess {
+  background-color: #1ee3ab;
+}
+
+.badgeFail {
+  background-color: #e06382;
+}

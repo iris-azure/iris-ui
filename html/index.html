@@ -9,6 +9,8 @@
   <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/iris-icons.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="scripts/common.js"></script>
 </head>
 <body>
   <div class="content">
@@ -83,8 +85,128 @@
       </div>
     </div>
     <div class="topbar">Top Bar</div>
-    <div class="main_content">Main Content</div>
+    <div class="main_content">
+      <div class="db">
+        <div class="db_title">
+          Dashboard
+        </div>
+        <div class="db_widget db_adf">
+          <div class="db_widgettitle">
+            <span class="db_widgeticon"><i class="iicons iicons-small adf"></i>&nbsp;</span>
+            <span class="db_widgettitletext">Data Factory</span>
+          </div>
+          <div class="db_widgetgraphcontainer">
+            <div class="db_widgetgraph">
+              <canvas id="dfStatToday"></canvas>
+            </div>
+            <div class="db_widgetgraph">
+              <canvas id="dfStatYesterday"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="db_widget db_sb">
+          <div class="db_widgettitle">
+            <span class="db_widgeticon"><i class="iicons iicons-small sb"></i>&nbsp;</span>
+            <span class="db_widgettitletext">Service Bus</span>
+          </div>
+          <div class="db_ComingSoon">
+            <span class="db_slantText">Coming Soon!</span>
+          </div>
+        </div>
+        <div class="db_widget db_acr">
+          <div class="db_widgettitle">
+            <span class="db_widgeticon"><i class="iicons iicons-small acr"></i>&nbsp;</span>
+            <span class="db_widgettitletext">Container Registry</span>
+          </div>
+          <div class="db_ComingSoon">
+            <span class="db_slantText">Coming Soon!</span>
+          </div>
+        </div>
+        <div class="db_widget db_adfTable">
+          <div class="db_widgettitle">
+            <span class="db_widgettitletext">Last Ten Pipeline Runs</span>
+          </div>
+          <div class="db_widgetBody">
+            <table class="db_widgetTable">
+              <thead>
+                <tr>
+                  <th>Data Factory Name</th>
+                  <th>Pipeline Name</th>
+                  <th>Last Run Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Data-Factory-1</td>
+                  <td>Pipeline-1</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeSuccess">Success</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-2</td>
+                  <td>Pipeline-2</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeFail">Failed</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-3</td>
+                  <td>Pipeline-3</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeSuccess">Success</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-4</td>
+                  <td>Pipeline-4</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeFail">Failed</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-3</td>
+                  <td>Pipeline-3</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeSuccess">Success</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-4</td>
+                  <td>Pipeline-4</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeFail">Failed</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-3</td>
+                  <td>Pipeline-3</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeSuccess">Success</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-4</td>
+                  <td>Pipeline-4</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeFail">Failed</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-3</td>
+                  <td>Pipeline-3</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeSuccess">Success</span></td>
+                </tr>
+                <tr>
+                  <td>Data-Factory-4</td>
+                  <td>Pipeline-4</td>
+                  <td>2022-03-11 12:35:46 UTC</td>
+                  <td><span class="badge badgeFail">Failed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>      
+    </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script src="scripts/chartjs-plugin-labels.min.js"></script>
   <script>
     let btn = document.querySelector("#btn");
     let sidebar = document.querySelector(".nav");
@@ -97,6 +219,112 @@
     searchBtn.onclick = function() {
       sidebar.classList.toggle("active");
     }
+
+    const ctx = document.getElementById('dfStatToday');
+    const myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+          labels: ['Succeeded', 'Failed'],
+          datasets: [{
+              label: 'Dataset 1',
+              data: [30, 25],
+              backgroundColor: ['#1ee3ab', '#e06382'],
+              borderWidth: 0
+          }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          labels: [
+            {
+              render: 'value',
+              fontColor: '#fff',
+              fontStyle: 'normal',
+              fontFamily: "'Poppins', 'sans-serif'",
+              position: 'outside'
+            },
+            {
+              render: 'label',
+              fontColor: '#fff',
+              fontStyle: 'normal',
+              fontFamily: "'Poppins', 'sans-serif'",
+              position: 'inside',
+              arc: true
+            }
+          ],
+          legend: {
+            position: 'none',
+            labels: {
+              color: 'white',
+              font: {
+                family: "'Poppins', 'sans-serif'"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Status Today',
+            color: 'white'
+          }
+        }
+      }
+    });
+    
+    const ctx1 = document.getElementById('dfStatYesterday');
+    const myChart1 = new Chart(ctx1, {
+      type: 'doughnut',
+      data: {
+          labels: ['Succeeded', 'Failed'],
+          datasets: [{
+              label: 'Dataset 1',
+              data: [30, 25],
+              backgroundColor: ['#1ee3ab', '#e06382'],
+              borderWidth: 0
+          }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          labels: [
+            {
+              render: 'value',
+              fontColor: '#fff',
+              fontStyle: 'normal',
+              fontFamily: "'Poppins', 'sans-serif'",
+              position: 'outside'
+            },
+            {
+              render: 'label',
+              fontColor: '#fff',
+              fontStyle: 'normal',
+              fontFamily: "'Poppins', 'sans-serif'",
+              position: 'inside',
+              arc: true
+            }
+          ],
+          legend: {
+            position: 'none',
+            labels: {
+              color: 'white',
+              font: {
+                family: "'Poppins', 'sans-serif'"
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Status Yesterday',
+            color: 'white'
+          }
+        }
+      }
+    });
+
+    /* Charts 
+       ADF Status Chart */
+
   </script>
 </body>
 </html>
