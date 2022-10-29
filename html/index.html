@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/iris-icons.css">
   <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/notification.css">
   <script src="scripts/common.js"></script>
 </head>
 <body>
@@ -84,7 +85,49 @@
         <i class="bx bxs-log-out" id="log_out"></i>
       </div>
     </div>
-    <div class="topbar">Top Bar</div>
+    <div class="topbar">
+      <div class="notifications">
+        <i class='bx bxs-bell main-icon'></i>
+        <span class="num">45</span>
+  
+        <ul>
+          <li>
+            <span class="notification-icon"><i class='bx bxs-error-circle notification-error'></i></i></span>
+            <span class="notification-text">
+              <span class="notification-title">Pipeline Failed</span>
+              <span class="notification-body">The pipeline pipeline-1 under adf-1 failed on 2022-03-21 12:23:56 UTC</span>
+            </span>
+          </li>
+          <li>
+            <span class="notification-icon"><i class='bx bxs-analyse notification-message'></i></span>
+            <span class="notification-text">
+              <span class="notification-title">Pipeline Execution in Progress</span>
+            </span>
+          </li>
+          <li>
+            <span class="notification-icon"><i class='bx bxs-check-circle notification-success'></i></i></span>
+            <span class="notification-text">
+              <span class="notification-title">Pipeline Succeeded</span>
+              <span class="notification-body">The pipeline pipeline-1 under adf-1 completed on 2022-03-21 12:23:56 UTC</span>
+            </span>
+          </li>
+          <li>
+            <span class="notification-icon"><i class='bx bxs-error-circle notification-error'></i></i></span>
+            <span class="notification-text">
+              <span class="notification-title">Pipeline Failed</span>
+              <span class="notification-body">The pipeline pipeline-1 under adf-1 failed on 2022-03-21 12:23:56 UTC</span>
+            </span>
+          </li>
+          <li>
+            <span class="notification-icon"><i class='bx bxs-check-circle notification-success'></i></i></span>
+            <span class="notification-text">
+              <span class="notification-title">Pipeline Succeeded</span>
+              <span class="notification-body">The pipeline pipeline-1 under adf-1 completed on 2022-03-21 12:23:56 UTC</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="main_content">
       <div class="db">
         <div class="db_title">
